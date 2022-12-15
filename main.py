@@ -6,6 +6,7 @@ import glob
 
 
 def main():
+    # import images
     faces_encodings = []
     faces_names = []
     cur_direc = os.getcwd()
@@ -13,7 +14,9 @@ def main():
     list_of_files = [f for f in glob.glob(path + '*.jpg')]
     number_files = len(list_of_files)
     names = list_of_files.copy()
+    print("Импорт изображений завершен")
 
+    # train faces
     for i in range(number_files):
         globals()['image_{}'.format(i)] = face_recognition.load_image_file(list_of_files[i])
         globals()['image_encoding_{}'.format(i)] = face_recognition.face_encodings(globals()['image_{}'.format(i)])[0]
@@ -21,7 +24,9 @@ def main():
         # Create array of known names
         names[i] = names[i].replace(cur_direc, "")
         faces_names.append(names[i])
+    print("Тренировка завершена")
 
+    # image recognition
     face_locations = []
     face_encodings = []
     face_names = []
